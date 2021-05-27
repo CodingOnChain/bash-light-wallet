@@ -1,0 +1,5 @@
+PAYMENT_PUB_KEY_FILE=$1
+NETWORK=$2
+ENTERPRISE_ADDR_FILE=$3
+
+cat $PAYMENT_PUB_KEY_FILE | cardano-address address payment --network-tag $NETWORK > $ENTERPRISE_ADDR_FILE

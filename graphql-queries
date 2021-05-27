@@ -1,0 +1,70 @@
+         query utxoSetForAddress($addresses: [String]) {
+           utxos(order_by: { value: desc }, where: { address: { _in: $addresses } }) {
+             transaction {
+               hash
+             }
+             address
+             value
+             index
+             tokens {
+               quantity
+               asset {
+                 assetId
+                 assetName
+                 description
+                 fingerprint
+                 logo
+                 name
+                 ticker
+                 url
+                 policyId
+               }
+             }
+           }
+         }
+
+{"addresses": ["addr_test1vzkvc5k3gkx7hp6k3ydevw42a3mr6kf3jxpr7lty5mj8gsgmnccjn"]}
+
+
+
+
+
+# submit
+
+mutation submitTransaction(
+
+    $transaction: String!
+) {
+    submitTransaction(transaction: $transaction) {
+        hash
+    }
+}
+
+{"transaction": "82a30083825820de3f5eba6f3b513598288b794313c07723cd69c05716c182eadbe8762268e82700825820e50f898065bb8c7dd573ca9663133c71057e12782a243925ee72aec7f4fe57de00825820fc11c603e09f57f0fea4e9bb2c8c8cf6e6af3e7c08a6bb2bf737117c2c34741a00018182583900accc52d1458deb8756891b963aaaec763d593191823f7d64a6e47441b88245d9bdee22363fd7ac773f594aac86b335a6c01e220f84f0d8a31a773594000200f6"}
+
+{
+  "errors": [
+    {
+      "message": "Unexpected error value: \"Deserialization failed in Transaction.witness_set.TransactionWitnessSet because: Invalid cbor: not the right type, expected `Map' byte received `Special'.\"",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ],
+      "path": [
+        "submitTransaction"
+      ],
+      "extensions": {
+        "code": "INTERNAL_SERVER_ERROR",
+        "exception": {
+          "stacktrace": [
+            "Error: Unexpected error value: \"Deserialization failed in Transaction.witness_set.TransactionWitnessSet because: Invalid cbor: not the right type, expected `Map' byte received `Special'.\"",
+            "    at asErrorInstance (/app/node_modules/graphql/execution/execute.js:481:10)"
+          ]
+        }
+      }
+    }
+  ],
+  "data": null
+}
