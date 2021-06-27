@@ -1,1 +1,4 @@
-cat $1 | cardano-address key public --with-chain-code > $2
+PAYMENT_SECRET_KEY_FILE=$1
+PAYMENT_PUBLIC_KEY_FILE=$2
+
+cat $PAYMENT_SECRET_KEY_FILE | cardano-address key public --with-chain-code > $PAYMENT_PUBLIC_KEY_FILE

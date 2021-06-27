@@ -1,10 +1,11 @@
 ADDRESS=$1
+NETWORK=$2
 
   cat >./wallet/query<<EOF
 { "query" : "{ utxos( order_by: { value: desc } where: { address: { _eq: \"${ADDRESS}\" }} ) { address index txHash value tokens { policyId assetName quantity } } }" }
 EOF
 
-curl -s https://graphql-api.testnet.dandelion.link \
+curl -s https://graphql-api.${NETWORK}.dandelion.link \
   -H 'Content-Type: application/json' -H 'Accept: application/json' \
   --data-binary @./wallet/query | jq .data.utxos > ./wallet/utxos.json
 
